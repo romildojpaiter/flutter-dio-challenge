@@ -2,6 +2,12 @@
 
 A new Flutter project.
 
+## Executando Build
+
+```
+flutter pub run build_runner build
+``` 
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
