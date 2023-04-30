@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_modulo_05/components/drawer_component.dart';
 import 'package:app_modulo_05/model/via_cep_model.dart';
 import 'package:app_modulo_05/repository/via_cep_repository.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _ConsultaCepPageState extends State<ConsultaCepPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Consulta CEP')),
+      drawer: const DrawerComponent(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Column(
