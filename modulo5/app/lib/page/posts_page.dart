@@ -1,5 +1,6 @@
 import 'package:app_modulo_05/model/post_model.dart';
-import 'package:app_modulo_05/page/post_detail_page.dart';
+import 'package:app_modulo_05/page/comment_page.dart';
+//import 'package:app_modulo_05/page/post_detail_page.dart';
 import 'package:app_modulo_05/repository/posts_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -29,12 +30,8 @@ class _PostsPageState extends State<PostsPage> {
       loading = true;
     });
     postModels = await postsRepository.getPosts();
-    print(postModels);
     setState(() {
       loading = false;
-      setState(() {
-        loading = false;
-      });
     });
   }
 
@@ -54,7 +51,7 @@ class _PostsPageState extends State<PostsPage> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PostDetailPage(postModel: post),
+                      builder: (context) => CommentPage(postId: post.id),
                     ),
                   ),
                   child: Hero(
