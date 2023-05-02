@@ -4,7 +4,7 @@ import 'package:app_modulo_05/model/post_model.dart';
 import 'package:app_modulo_05/repository/posts/posts_repository.dart';
 import 'package:dio/dio.dart';
 
-class PostsDioRespository implements PostsRepository {
+class PostsDioRepository implements PostsRepository {
   //
 
   @override
@@ -12,8 +12,9 @@ class PostsDioRespository implements PostsRepository {
     var dio = Dio();
     var response = await dio.get("https://jsonplaceholder.typicode.com/posts");
     if (response.statusCode == 200) {
-      var jsonPosts = json.decode(response.data);
-      return (jsonPosts as List).map((e) => PostModel.fromJson(e)).toList();
+      return (response.data as List<dynamic>)
+          .map((e) => PostModel.fromJson(e))
+          .toList();
     }
     return [];
   }
