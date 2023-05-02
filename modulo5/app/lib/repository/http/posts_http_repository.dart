@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:app_modulo_05/model/post_model.dart';
 import 'package:http/http.dart' as http;
 
-class PostsRespository {
+class PostsHttpRespository {
   Future<List<PostModel>> getPosts() async {
     var response =
         await http.get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:app_modulo_05/model/via_cep_model.dart';
 
-class ViaCepRepository {
+class ViaCepHttpRepository {
   //
 
   Future<ViaCepModel> consultarCep(String cep) async {

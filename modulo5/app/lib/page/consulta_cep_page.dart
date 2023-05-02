@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:app_modulo_05/components/drawer_component.dart';
 import 'package:app_modulo_05/model/via_cep_model.dart';
-import 'package:app_modulo_05/repository/via_cep_repository.dart';
+import 'package:app_modulo_05/repository/http/via_cep_http_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class ConsultaCepPage extends StatefulWidget {
   const ConsultaCepPage({super.key});
@@ -17,7 +14,7 @@ class _ConsultaCepPageState extends State<ConsultaCepPage> {
   var consultaCepField = TextEditingController(text: "");
   bool statusResult = false;
   ViaCepModel? viaCepModel;
-  var viaCepRepository = ViaCepRepository();
+  var viaCepRepository = ViaCepHttpRepository();
   bool loading = false;
 
   @override

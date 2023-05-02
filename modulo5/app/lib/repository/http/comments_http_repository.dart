@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:app_modulo_05/model/comment_model.dart';
 import 'package:http/http.dart' as http;
 
-class CommentsRepository {
+class CommentsHttpRepository {
   //
 
   Future<List<CommentModel>> getCommentsById(int postId) async {
