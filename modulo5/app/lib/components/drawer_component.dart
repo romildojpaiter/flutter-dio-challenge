@@ -105,7 +105,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
           ListTile(
             leading: const Icon(Icons.post_add),
             title: const Text('Posts'),
-            onTap: () => Navigator.of(context).pushNamed(AppRoutes.POSTS),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(AppRoutes.POSTS);
+            },
           ),
           Expanded(child: Container()),
           const ListTile(
