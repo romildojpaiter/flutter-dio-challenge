@@ -1,6 +1,6 @@
 import 'package:app_modulo_05/components/drawer_component.dart';
 import 'package:app_modulo_05/model/via_cep_model.dart';
-import 'package:app_modulo_05/repository/viacep/via_cep_http_repository.dart';
+import 'package:app_modulo_05/repository/viacep/impl/via_cep_http_repository.dart';
 import 'package:flutter/material.dart';
 
 class ConsultaCepPage extends StatefulWidget {
