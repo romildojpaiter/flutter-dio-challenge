@@ -19,11 +19,11 @@ class _CommentPageState extends State<CommentPage> {
 
   @override
   void initState() {
+    setState(() {
+      loading = true;
+    });
     super.initState();
     recoveryComments();
-    setState(() {
-      loading = false;
-    });
   }
 
   @override
@@ -42,18 +42,56 @@ class _CommentPageState extends State<CommentPage> {
           ),
         ),
         body: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
           child: loading
               ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
                   itemCount: comments.length,
                   itemBuilder: (_, int index) {
                     var comment = comments[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 8.0),
-                      child: Container(
-                        margin: EdgeInsets.all(8.0),
-                        child: Text(comment.body),
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Card(
+                        elevation: 3,
+                        child: Container(
+                          padding: EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Comentário",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 8.0,
+                              ),
+                              Text(
+                                comment.body,
+                                style: TextStyle(),
+                                textAlign: TextAlign.justify,
+                              ),
+                              const SizedBox(height: 10.0),
+                              Row(
+                                children: [
+                                  const Text("By: "),
+                                  Text(
+                                    comment.name.length >= 16
+                                        ? comment.name.substring(0, 16)
+                                        : comment.name.substring(0, 14),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(comment.email.toLowerCase()),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },
@@ -68,5 +106,9 @@ class _CommentPageState extends State<CommentPage> {
       loading = true;
     });
     comments = await commentsRespository.getCommentsById(widget.postId);
+    print(comments);
+    setState(() {
+      loading = false;
+    });
   }
 }
