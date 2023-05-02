@@ -1,6 +1,7 @@
 import 'package:app_modulo_05/model/post_model.dart';
 import 'package:app_modulo_05/page/comment_page.dart';
-import 'package:app_modulo_05/repository/http/posts_http_repository.dart';
+import 'package:app_modulo_05/repository/posts/impl/posts_http_repository.dart';
+import 'package:app_modulo_05/repository/posts/posts_repository.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class PostsPage extends StatefulWidget {
 class _PostsPageState extends State<PostsPage> {
   //
 
-  var postsRepository = PostsHttpRespository();
+  PostsRepository postsRepository = PostsHttpRepository();
   // List<PostModel> postModels = [];
   var postModels = <PostModel>[];
   bool loading = false;
