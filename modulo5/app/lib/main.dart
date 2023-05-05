@@ -1,9 +1,12 @@
+import 'package:app_modulo_05/page/marvel_page.dart';
 import 'package:app_modulo_05/page/posts_page.dart';
 import 'package:app_modulo_05/page/consulta_cep_page.dart';
 import 'package:app_modulo_05/utils/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
   runApp(const MyApp());
 }
 
@@ -14,6 +17,7 @@ class MyApp extends StatelessWidget {
     return {
       AppRoutes.CONSULTA_CEP: (ctx) => const ConsultaCepPage(),
       AppRoutes.POSTS: (ctx) => const PostsPage(),
+      AppRoutes.HEROES: (ctx) => const MarvelPage(),
     };
   }
 

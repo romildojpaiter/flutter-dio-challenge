@@ -110,6 +110,14 @@ class _DrawerComponentState extends State<DrawerComponent> {
               Navigator.of(context).pushNamed(AppRoutes.POSTS);
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.help_rounded),
+            title: const Text('Herois'),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(AppRoutes.HEROES);
+            },
+          ),
           Expanded(child: Container()),
           const ListTile(
             leading: const Icon(Icons.person),
