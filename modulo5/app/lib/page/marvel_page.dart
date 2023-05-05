@@ -13,6 +13,7 @@ class _MarvelPageState extends State<MarvelPage> {
   late MarvelRepository marvelRepository;
   CharactersModel characters = CharactersModel();
   bool loading = false;
+  int offset = 0;
 
   @override
   void initState() {
@@ -22,11 +23,42 @@ class _MarvelPageState extends State<MarvelPage> {
   }
 
   carregarDados() async {
-    loading = true;
-    characters = await marvelRepository.getCharacters();
+    if (characters.data == null || characters.data!.results == null) {
+      setState(() {
+        loading = true;
+      });
+      print(offset);
+      characters = await marvelRepository.getCharacters(offset);
+    } else {
+      setState(() {
+        loading = true;
+      });
+      offset += characters.data!.count!;
+      print(offset);
+      var tempList = await marvelRepository.getCharacters(offset);
+      characters.data!.results!.addAll(tempList.data!.results!);
+    }
     // print(characters.data!.results!);
     loading = false;
     setState(() {});
+  }
+
+  int retornaQuantidadeHerois() {
+    try {
+      return characters.data!.total!;
+      setState(() {});
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  int retornaQuantidadeHeroisAtual() {
+    try {
+      return offset + characters.data!.count!;
+      setState(() {});
+    } catch (e) {
+      return 0;
+    }
   }
 
   @override
@@ -36,9 +68,19 @@ class _MarvelPageState extends State<MarvelPage> {
         appBar: AppBar(
           title: const Text("Personagens Marvel"),
         ),
-        body: loading
-            ? const Center(child: CircularProgressIndicator())
-            : ListView.builder(
+        body: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Text(
+                      "Quantidade de Personagens: ${retornaQuantidadeHeroisAtual()}/${retornaQuantidadeHerois()}")
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
                 itemCount: (characters.data == null ||
                         characters.data!.results == null)
                     ? 0
@@ -90,6 +132,17 @@ class _MarvelPageState extends State<MarvelPage> {
                   );
                 },
               ),
+            ),
+            loading
+                ? const Center(child: CircularProgressIndicator())
+                : ElevatedButton(
+                    onPressed: () {
+                      carregarDados();
+                    },
+                    child: Text("Carregar mais itens"),
+                  ),
+          ],
+        ),
       ),
     );
   }
