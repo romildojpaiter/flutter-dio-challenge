@@ -109,8 +109,9 @@ class _TaskPageState extends State<TaskPage> {
                           var tarefa = _tarefasModel.tarefas[index];
                           return Dismissible(
                             key: Key(tarefa.objectId),
-                            onDismissed: (DismissDirection dismissDirection) {
-                              _tarefaRepository.excluir(tarefa.objectId);
+                            onDismissed:
+                                (DismissDirection dismissDirection) async {
+                              await _tarefaRepository.excluir(tarefa.objectId);
                               carregarTarefas();
                             },
                             child: Card(
