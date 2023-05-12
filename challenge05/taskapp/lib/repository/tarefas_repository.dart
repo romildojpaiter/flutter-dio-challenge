@@ -29,11 +29,27 @@ class TarefaRepository {
 
   Future<void> criar(TarefaModel tarefaModel) async {
     try {
-      print(_dio.options.baseUrl + _path);
-      print(tarefaModel.createWithJson());
       var response = await _dio.post(_path, data: tarefaModel.createWithJson());
     } catch (e) {
-      print(e);
+      throw e;
+    }
+  }
+
+  Future<void> excluir(String objectId) async {
+    try {
+      var query = "$_path/$objectId";
+      var response = await _dio.delete(query);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> alterar(String objectId, Map<String, dynamic> map) async {
+    try {
+      print(json.encode(map));
+      var query = "$_path/$objectId";
+      var response = await _dio.put(query, data: json.encode(map));
+    } catch (e) {
       throw e;
     }
   }

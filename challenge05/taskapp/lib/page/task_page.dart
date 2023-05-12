@@ -107,26 +107,36 @@ class _TaskPageState extends State<TaskPage> {
                         itemCount: _tarefasModel.tarefas.length,
                         itemBuilder: (_, int index) {
                           var tarefa = _tarefasModel.tarefas[index];
-                          return Card(
-                            elevation: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Center(child: Text(tarefa.descricao)),
-                                  Expanded(child: Container()),
-                                  Switch(
-                                    value: tarefa.concluida,
-                                    onChanged: (bool value) {
-                                      // _onlyNotCompleted = value;
-                                      carregarTarefas();
-                                      setState(() {});
-                                    },
-                                  )
-                                ],
+                          return Dismissible(
+                            key: Key(tarefa.objectId),
+                            onDismissed: (DismissDirection dismissDirection) {
+                              _tarefaRepository.excluir(tarefa.objectId);
+                              carregarTarefas();
+                            },
+                            child: Card(
+                              elevation: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Center(child: Text(tarefa.descricao)),
+                                    Expanded(child: Container()),
+                                    Switch(
+                                      value: tarefa.concluida,
+                                      onChanged: (bool value) async {
+                                        await _tarefaRepository.alterar(
+                                          tarefa.objectId,
+                                          {"concluida": !tarefa.concluida},
+                                        );
+                                        carregarTarefas();
+                                        setState(() {});
+                                      },
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );
