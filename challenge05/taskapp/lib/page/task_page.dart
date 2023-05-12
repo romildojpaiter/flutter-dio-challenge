@@ -10,10 +10,11 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  TarefaRepository tarefaRepository = TarefaRepository();
+  final TarefaRepository _tarefaRepository = TarefaRepository();
   TarefasModel _tarefasModel = TarefasModel([]);
   bool _loading = false;
   bool _onlyNotCompleted = false;
+  var descriptionController = TextEditingController(text: "");
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _TaskPageState extends State<TaskPage> {
     setState(() {
       _loading = true;
     });
-    _tarefasModel = await tarefaRepository.get(_onlyNotCompleted);
+    _tarefasModel = await _tarefaRepository.get(_onlyNotCompleted);
     setState(() {
       _loading = false;
     });
@@ -37,6 +38,41 @@ class _TaskPageState extends State<TaskPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Tarefas"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Incluir Tarefa'),
+              content: Column(
+                children: [
+                  const Text('Insira a descrição'),
+                  TextField(
+                    controller: descriptionController,
+                  )
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    Navigator.pop(context, 'OK');
+                    await _tarefaRepository.criar(
+                      TarefaModel.criar(descriptionController.text, false),
+                    );
+                    descriptionController.text = "";
+                    carregarTarefas();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          ),
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.navigation),
         ),
         body: Column(
           children: [
@@ -85,7 +121,7 @@ class _TaskPageState extends State<TaskPage> {
                                   Switch(
                                     value: tarefa.concluida,
                                     onChanged: (bool value) {
-                                      _onlyNotCompleted = value;
+                                      // _onlyNotCompleted = value;
                                       carregarTarefas();
                                       setState(() {});
                                     },

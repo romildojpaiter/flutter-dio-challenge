@@ -31,6 +31,8 @@ class TarefaModel {
   TarefaModel(this.objectId, this.createdAt, this.updatedAt, this.descricao,
       this.concluida);
 
+  TarefaModel.criar(this.descricao, this.concluida);
+
   TarefaModel.fromJson(Map<String, dynamic> json) {
     objectId = json['objectId'];
     createdAt = json['createdAt'];
@@ -39,13 +41,16 @@ class TarefaModel {
     concluida = json['concluida'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['objectId'] = this.objectId;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['descricao'] = this.descricao;
-    data['concluida'] = this.concluida;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        'objectId': this.objectId,
+        'createdAt': this.createdAt,
+        'updatedAt': this.updatedAt,
+        'descricao': this.descricao,
+        'concluida': this.concluida
+      };
+
+  Map<String, dynamic> createWithJson() => {
+        'descricao': "${this.descricao}",
+        'concluida': this.concluida,
+      };
 }
