@@ -50,7 +50,7 @@ class TarefaModel {
       };
 
   Map<String, dynamic> createWithJson() => {
-        'descricao': "${this.descricao}",
-        'concluida': this.concluida,
+        "descricao": "${this.descricao}",
+        "concluida": this.concluida,
       };
 }
