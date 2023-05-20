@@ -1,9 +1,6 @@
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:modulo06app/pages/brasil_fields/brasil_fields_page.dart';
 
 class PromoLandConvexPage extends StatefulWidget {
@@ -50,6 +47,18 @@ class _PromoLandConvexPageState extends State<PromoLandConvexPage>
             ),
             Container(
               color: Colors.blue,
+              child: Column(children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (context.locale.toString() == "en_US") {
+                      context.setLocale(Locale('pt', 'BR'));
+                    } else {
+                      context.setLocale(Locale('en', 'US'));
+                    }
+                  },
+                  child: Text("CACHORRO").tr(),
+                )
+              ]),
             ),
             Container(
               color: Colors.grey,
