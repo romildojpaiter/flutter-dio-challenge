@@ -1,5 +1,9 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:modulo06app/pages/brasil_fields/brasil_fields_page.dart';
 
 class PromoLandConvexPage extends StatefulWidget {
   const PromoLandConvexPage({super.key});
@@ -12,6 +16,8 @@ class _PromoLandConvexPageState extends State<PromoLandConvexPage>
     with TickerProviderStateMixin {
   //
   late var _tabController;
+  var _f = NumberFormat('#,###.0#', 'en_US');
+  var _fBr = NumberFormat('#,###.0#', 'pt_BR');
 
   @override
   void initState() {
@@ -45,11 +51,15 @@ class _PromoLandConvexPageState extends State<PromoLandConvexPage>
               color: Colors.blue,
             ),
             Container(
-              color: Colors.green,
+              color: Colors.grey,
+              child: Column(
+                children: [
+                  Text(_f.format(1200.345)),
+                  Text(_fBr.format(1200.345))
+                ],
+              ),
             ),
-            Container(
-              color: Colors.orange,
-            ),
+            BrasilFieldsPage(),
           ],
         ),
         bottomNavigationBar: ConvexAppBar.badge(
