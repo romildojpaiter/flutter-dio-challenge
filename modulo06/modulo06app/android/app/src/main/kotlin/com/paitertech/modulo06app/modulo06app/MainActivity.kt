@@ -1,4 +1,4 @@
-package com.paitertech.modulo06.modulo06app
+package com.paitertech.modulo06app.modulo06app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.paitertech.modulo06.modulo06app">
+    package="com.paitertech.modulo06app.modulo06app">
    <application
         android:label="modulo06app"
         android:name="${applicationName}"
