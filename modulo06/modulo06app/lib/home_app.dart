@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:modulo06app/pages/splash/splash_screen_delay_page.dart';
 
@@ -16,6 +17,9 @@ class _HomeAppState extends State<HomeApp> {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       home: SplashScreenDelayPage(),
     );
   }
