@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modulo06app/pages/battery_page.dart';
 import 'package:modulo06app/pages/conectivity_page.dart';
+import 'package:modulo06app/pages/geolocator_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -213,6 +214,28 @@ class _DrawerComponentState extends State<DrawerComponent> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => ConectivityPage()),
+              );
+            },
+          ),
+          // Geo Locator
+          ListTile(
+            title: Row(
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.locationDot,
+                  size: 24,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                const Text("Geo Locator"),
+              ],
+            ),
+            onTap: () async {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => GeoLocatorPage()),
               );
             },
           )
