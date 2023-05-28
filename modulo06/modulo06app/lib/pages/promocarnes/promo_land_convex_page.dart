@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:modulo06app/%20components/drawer_componet.dart';
 import 'package:modulo06app/pages/brasil_fields/brasil_fields_page.dart';
 
 class PromoLandConvexPage extends StatefulWidget {
@@ -39,6 +40,7 @@ class _PromoLandConvexPageState extends State<PromoLandConvexPage>
             style: TextStyle(fontWeight: FontWeight.bold),
           ).tr(),
         ),
+        drawer: DrawerComponent(),
         body: TabBarView(
           controller: _tabController,
           children: [
