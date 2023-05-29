@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modulo06app/pages/battery_page.dart';
 import 'package:modulo06app/pages/conectivity_page.dart';
 import 'package:modulo06app/pages/geolocator_page.dart';
+import 'package:modulo06app/pages/qr_code_scanner/qr_code_scanner_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,6 +33,29 @@ class _DrawerComponentState extends State<DrawerComponent> {
             ),
             child: Text('Drawer Header'),
           ),
+          // QR Code Scanner
+          ListTile(
+            title: Row(
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.qrcode,
+                  size: 24,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                const Text('Leitor de QR Code'),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => QrCodeScannerPage()),
+              );
+            },
+          ),
+          // Battery Shower
           ListTile(
             title: Row(
               children: [
