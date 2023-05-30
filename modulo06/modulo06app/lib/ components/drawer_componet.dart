@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modulo06app/pages/battery_page.dart';
 import 'package:modulo06app/pages/conectivity_page.dart';
 import 'package:modulo06app/pages/geolocator_page.dart';
+import 'package:modulo06app/pages/image_picker/image_picker_page.dart';
 import 'package:modulo06app/pages/qr_code_scanner/qr_code_scanner_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
@@ -32,6 +33,28 @@ class _DrawerComponentState extends State<DrawerComponent> {
               color: Colors.blue,
             ),
             child: Text('Drawer Header'),
+          ),
+          // Image Picker
+          ListTile(
+            title: Row(
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.camera,
+                  size: 24,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                const Text('Camera'),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ImagePickerPage()),
+              );
+            },
           ),
           // QR Code Scanner
           ListTile(
