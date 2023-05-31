@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:stateprovider/page/tasks/tasks_page.dart';
 
 class DrawerComponent extends StatefulWidget {
   const DrawerComponent({super.key});
@@ -21,23 +23,23 @@ class _DrawerComponentState extends State<DrawerComponent> {
           ),
           ListTile(
             title: Row(
-              children: [
-                // FaIcon(
-                //   FontAwesomeIcons.camera,
-                //   size: 24,
-                // ),
+              children: const [
+                FaIcon(
+                  FontAwesomeIcons.listCheck,
+                  size: 24,
+                ),
                 SizedBox(
                   width: 10,
                 ),
-                const Text('Camera'),
+                Text('Tarefas'),
               ],
             ),
             onTap: () {
               Navigator.pop(context);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (_) => ImagePickerPage()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => TasksPage()),
+              );
             },
           )
         ],
