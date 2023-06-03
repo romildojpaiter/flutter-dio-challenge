@@ -5,7 +5,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 // ignore: must_be_immutable
 class ContadorAnnotedMobXPage extends StatelessWidget {
   ContadorAnnotedMobXPage({super.key});
-  ContadorMobXStoreService contadorMobXService = ContadorMobXStoreService();
+  ContadorMobXStoreService contadorMobXStoreService =
+      ContadorMobXStoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,14 @@ class ContadorAnnotedMobXPage extends StatelessWidget {
               Observer(
                 builder: (context) {
                   return Text(
-                    "${contadorMobXService.contador}",
+                    "${contadorMobXStoreService.contador}",
                     style: const TextStyle(fontSize: 30.0),
                   );
                 },
               ),
               TextButton(
                 onPressed: () {
-                  contadorMobXService.incrementar();
+                  contadorMobXStoreService.incrementar();
                 },
                 child: const Text(
                   "Incrementar",
