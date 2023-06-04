@@ -1,5 +1,6 @@
 import 'package:appmobxsample/pages/contador/contador_annoted_mobx_page.dart';
 import 'package:appmobxsample/pages/contador/contador_mobx_page.dart';
+import 'package:appmobxsample/pages/tarefas/tarefas_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -67,6 +68,28 @@ class _DrawerComponentState extends State<DrawerComponent> {
               );
             },
           ),
+          // Contador MobX CodeGen
+          ListTile(
+            title: const Row(
+              children: [
+                FaIcon(
+                  FontAwesomeIcons.listCheck,
+                  size: 24,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('Tarefas'),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => TarefasPage()),
+              );
+            },
+          )
         ],
       ),
     );
