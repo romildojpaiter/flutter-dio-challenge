@@ -16,25 +16,28 @@ class HomeGetXApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Counter"),
         ),
-        drawer: DrawerComponent(),
+        drawer: const DrawerComponent(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "GetX Sample Counter",
                 style: TextStyle(fontSize: 24.0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Obx(() {
                 return Text(
                   "${contadorGetXController.contador}",
-                  style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 );
               }),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
@@ -44,7 +47,7 @@ class HomeGetXApp extends StatelessWidget {
                 onPressed: () {
                   contadorGetXController.incrementar();
                 },
-                child: Text("Incrementar"),
+                child: const Text("Incrementar"),
               )
             ],
           ),
