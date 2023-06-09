@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>484058303267-9h4hqtmg7em99ub92qhtt9bfh2vupf26.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.484058303267-9h4hqtmg7em99ub92qhtt9bfh2vupf26</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDbxs7H6OiluuSAbsqhOO-rfw7cKIJ5HX8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>484058303267</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.paitertech.firebaseapp.firebaseapp.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>promocarnes-app-44488</string>
+	<key>STORAGE_BUCKET</key>
+	<string>promocarnes-app-44488.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:484058303267:ios:b95f598026b0f4e04eda96</string>
+</dict>
+</plist>
