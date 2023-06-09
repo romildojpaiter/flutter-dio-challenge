@@ -1,4 +1,5 @@
 import 'package:appgetxsample/components/drawer_component.dart';
+import 'package:appgetxsample/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -7,7 +8,7 @@ import '../service/contador_getx_controller.dart';
 // ignore: must_be_immutable
 class HomeGetXApp extends StatelessWidget {
   HomeGetXApp({super.key});
-  var contadorGetXController = ContadorGetXController();
+  var contadorGetXController = getIt<ContadorGetXController>();
 
   @override
   Widget build(BuildContext context) {

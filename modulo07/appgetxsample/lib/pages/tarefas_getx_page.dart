@@ -1,3 +1,4 @@
+import 'package:appgetxsample/main.dart';
 import 'package:appgetxsample/model/tarefas_model.dart';
 import 'package:appgetxsample/service/tarefas_getx_controller.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 class TarefasGetXPage extends StatelessWidget {
   bool onlyNotCompleted = false;
   var descricaoTextController = TextEditingController(text: "");
-  var listaTarefasController = TarefasGetXController();
+  var listaTarefasController = getIt<TarefasGetXController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var tarefaSelecionada = Tarefa.empty();
   TarefasGetXPage({super.key});
