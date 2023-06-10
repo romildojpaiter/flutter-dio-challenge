@@ -1,5 +1,10 @@
-abstract class TarefaRepository {
-  list();
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseapp/models/tarefa_model.dart';
 
-  void add(Map<String, dynamic> json);
+abstract class TarefaRepository {
+  CollectionReference<Map<String, dynamic>> list();
+
+  void add(TarefaModel tarefa);
+
+  Future<void> addAsync(TarefaModel tarefa);
 }

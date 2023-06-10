@@ -13,6 +13,7 @@ final getIt = GetIt.instance;
 void setupGetIt() {
   getIt.registerSingleton<FirebaseConn>(FirebaseConnInfra());
 
+  // Repositories
   getIt.registerSingleton<TarefaRepository>(
       TarefaRespositoryImpl(firebaseConn: getIt<FirebaseConn>()));
 
