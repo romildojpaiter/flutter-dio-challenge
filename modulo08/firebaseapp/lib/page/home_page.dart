@@ -205,7 +205,7 @@ class HomePage extends StatelessWidget {
                                           value: tarefa.concluido,
                                           onChanged: (bool value) {
                                             tarefa.concluido = value;
-                                            tarefaController.alterar(tarefa);
+                                            tarefaController.concluir(tarefa);
                                           },
                                         ),
                                       ),
@@ -223,8 +223,7 @@ class HomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     descricaoController.text = "";
-                    tarefaController.tarefa =
-                        TarefaModel(descricao: "", concluido: false);
+                    tarefaController.initTarefaModel();
                     _showBottonSheetAdicionarTarefa(context);
                   },
                   child: const Text("Adicionar"),

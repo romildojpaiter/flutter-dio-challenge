@@ -6,11 +6,20 @@ class TarefaModel {
   bool concluido = false;
   DateTime? concludedAt;
   DateTime createdAt = DateTime.now();
+  String userId = "";
 
-  TarefaModel(
-      {required this.descricao, required this.concluido, this.concludedAt});
+  TarefaModel({
+    required this.descricao,
+    required this.concluido,
+    required this.userId,
+    this.concludedAt,
+  });
 
-  TarefaModel.of({required this.descricao, required this.concluido});
+  TarefaModel.of({
+    required this.descricao,
+    required this.concluido,
+    required this.userId,
+  });
 
   TarefaModel.fromJson(Map<String, dynamic> json) {
     descricao = json['descricao'];
@@ -27,6 +36,7 @@ class TarefaModel {
     data['concluido'] = this.concluido;
     data['concludedAt'] = this.concludedAt;
     data['createdAt'] = this.createdAt;
+    data['userId'] = this.userId;
     return data;
   }
 }
