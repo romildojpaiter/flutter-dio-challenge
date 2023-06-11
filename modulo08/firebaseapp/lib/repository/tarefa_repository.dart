@@ -6,5 +6,9 @@ abstract class TarefaRepository {
 
   void add(TarefaModel tarefa);
 
-  Future<void> addAsync(TarefaModel tarefa);
+  Future<void> adicionar(TarefaModel tarefa);
+
+  Future<void> alterar(TarefaModel tarefa);
+
+  Future<void> excluir(TarefaModel tarefa);
 }

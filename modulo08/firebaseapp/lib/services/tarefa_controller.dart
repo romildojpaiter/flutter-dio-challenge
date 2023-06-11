@@ -1,38 +1,61 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebaseapp/main.dart';
 import 'package:firebaseapp/models/tarefa_model.dart';
 import 'package:firebaseapp/repository/tarefa_repository.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 
 class TarefaController extends GetxController {
   var tarefaRepository = getIt<TarefaRepository>();
 
-  // late Rx<CollectionReference<Map<String, dynamic>>> _tarefas;
+  final RxBool _somenteNaoConcluidas = false.obs;
+  final Rx<TarefaModel> _tarefa =
+      TarefaModel(descricao: "", concluido: false).obs;
 
-  // Future<void> load() async {
-  //   try {
-  //     _tarefas = tarefaRepository.list().obs;
-  //     print(_tarefas.map((data) =>
-  //         data?.snapshots().map((event) => print(event.reactive.value))));
-  //   } catch (e) {
-  //     print("[ERROR] on load Tarefa Controller");
-  //   }
-  // }
+  TarefaModel get tarefa => _tarefa.value;
+  set tarefa(TarefaModel tarefaModel) => _tarefa.value = tarefaModel;
 
-  CollectionReference<Map<String, dynamic>> get tarefas =>
-      tarefaRepository.list();
+  bool get somenteNaoConcluidas => _somenteNaoConcluidas.value;
+  setApenasNaoConcluido(bool value) {
+    _somenteNaoConcluidas.value = value;
+  }
 
-  Future<void> addTask() {
-    // Create a new user with a first and last name
-    final tarefa = TarefaModel.of(descricao: "descricao 2", concluido: false);
+  Rx<Stream<QuerySnapshot<Map<String, dynamic>>>> get tarefas =>
+      _somenteNaoConcluidas.value
+          ? consultaWhereAndOrder().obs
+          : tarefaRepository
+              .list()
+              .orderBy("createdAt", descending: true)
+              .snapshots()
+              .obs;
 
-    return tarefaRepository.addAsync(tarefa);
+  Stream<QuerySnapshot<Map<String, dynamic>>> consultaWhereAndOrder() {
+    var query = tarefaRepository
+        .list()
+        .where("concluido", isEqualTo: false)
+        .orderBy('createdAt', descending: true);
+    query.get();
+    // query.get().then((QuerySnapshot querySnapshot) {
+    //   querySnapshot.docs.forEach((DocumentSnapshot doc) {
+    //     print(doc.id + " => " + doc.data().toString());
+    //   });
+    // }).catchError((error) {
+    //   print("Erro ao executar a consulta: $error");
+    // });
+    return query.snapshots();
+  }
 
-    // Add a new document with a generated ID
+  Future<void> addTask(String descricao) async {
+    final tarefa = TarefaModel.of(descricao: descricao, concluido: false);
+    return await tarefaRepository.adicionar(tarefa);
+  }
 
-    // var users = await db.collection("users").get();
-    // for (var doc in users.docs) {
-    //   print("${doc.id} => ${doc.data()}");
-    // }
+  Future<void> alterar(TarefaModel tarefa) async {
+    return await tarefaRepository.alterar(tarefa);
+  }
+
+  Future<void> excluir(TarefaModel tarefa) async {
+    return await tarefaRepository.excluir(tarefa);
   }
 }

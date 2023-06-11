@@ -20,10 +20,26 @@ class TarefaRespositoryImpl implements TarefaRepository {
   }
 
   @override
-  Future<void> addAsync(TarefaModel tarefa) async {
+  Future<void> adicionar(TarefaModel tarefa) async {
     DocumentReference result = await firebaseConn.db
         .collection(_collectionTarefas)
         .add(tarefa.toJson());
     print('TarefaModel addAsync with ID: ${result.id}');
+  }
+
+  @override
+  Future<void> alterar(TarefaModel tarefa) async {
+    return await firebaseConn.db
+        .collection(_collectionTarefas)
+        .doc(tarefa.id)
+        .update(tarefa.toJson());
+  }
+
+  @override
+  Future<void> excluir(TarefaModel tarefa) async {
+    return await firebaseConn.db
+        .collection(_collectionTarefas)
+        .doc(tarefa.id)
+        .delete();
   }
 }
