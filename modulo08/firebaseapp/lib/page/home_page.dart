@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseapp/components/drawer_component.dart';
 import 'package:firebaseapp/models/tarefa_model.dart';
 import 'package:firebaseapp/services/tarefa_controller.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +138,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: const DrawerComponent(),
         appBar: AppBar(
           title: const Text("Firebase Task App"),
         ),
