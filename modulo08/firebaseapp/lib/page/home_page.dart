@@ -11,69 +11,124 @@ class HomePage extends StatelessWidget {
 
   HomePage({super.key});
 
-  _showBottonSheetAdicionarTarefa(BuildContext context) {
-    return showModalBottomSheet(
+  _showDialogAdicionarTarefa(BuildContext context) {
+    showDialog<void>(
       context: context,
-      builder: (context) {
-        return Container(
-          height: 200,
-          color: Colors.amber,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const ListTile(
-                  leading: Icon(Icons.add),
-                  title: Text(
-                    'Adicionar Tarefa',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.add),
+              Text(
+                'Adicionar Tarefa',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: TextField(
+            controller: descricaoController,
+            decoration: const InputDecoration(
+                icon: Icon(Icons.task), hintText: 'Informe o descricao'),
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('Fechar'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            Expanded(child: Container()),
+            if (tarefaController.tarefa.id == null)
+              ElevatedButton(
+                child: const Text('Adicionar'),
+                onPressed: () {
+                  tarefaController.addTask(descricaoController.text);
+                  Navigator.pop(context);
+                },
+              )
+            else
+              ElevatedButton(
+                child: const Text('Alterar'),
+                onPressed: () {
+                  tarefaController.tarefa.descricao = descricaoController.text;
+                  tarefaController.alterar(tarefaController.tarefa);
+                  Navigator.pop(context);
+                },
+              )
+          ],
+        );
+      },
+    );
+  }
+
+  _showBottonSheetAdicionarTarefa(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Obx(() {
+          return SingleChildScrollView(
+            child: Container(
+              height: 200,
+              color: Colors.amber,
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const ListTile(
+                    leading: Icon(Icons.add),
+                    title: Text(
+                      'Adicionar Tarefa',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                TextField(
-                  controller: descricaoController,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      icon: Icon(Icons.task),
-                      hintText: 'Informe o descricao'),
-                ),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      child: const Text('Fechar'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    Expanded(child: Container()),
-                    if (tarefaController.tarefa.id == null)
+                  TextField(
+                    controller: descricaoController,
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.task),
+                        hintText: 'Informe o descricao'),
+                  ),
+                  Row(
+                    children: [
                       ElevatedButton(
-                        child: const Text('Adicionar'),
+                        child: const Text('Fechar'),
                         onPressed: () {
-                          tarefaController.addTask(descricaoController.text);
                           Navigator.pop(context);
                         },
-                      )
-                    else
-                      ElevatedButton(
-                        child: const Text('Alterar'),
-                        onPressed: () {
-                          tarefaController.tarefa.descricao =
-                              descricaoController.text;
-                          tarefaController.alterar(tarefaController.tarefa);
-                          Navigator.pop(context);
-                        },
-                      )
-                  ],
-                ),
-              ],
+                      ),
+                      Expanded(child: Container()),
+                      if (tarefaController.tarefa.id == null)
+                        ElevatedButton(
+                          child: const Text('Adicionar'),
+                          onPressed: () {
+                            tarefaController.addTask(descricaoController.text);
+                            Navigator.pop(context);
+                          },
+                        )
+                      else
+                        ElevatedButton(
+                          child: const Text('Alterar'),
+                          onPressed: () {
+                            tarefaController.tarefa.descricao =
+                                descricaoController.text;
+                            tarefaController.alterar(tarefaController.tarefa);
+                            Navigator.pop(context);
+                          },
+                        )
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }
@@ -124,10 +179,12 @@ class HomePage extends StatelessWidget {
                                   tarefa.id = item.id;
                                   return Dismissible(
                                     key: UniqueKey(),
-                                    onDismissed: (DismissDirection direction) {
+                                    confirmDismiss:
+                                        (DismissDirection direction) async {
                                       if (direction ==
                                           DismissDirection.startToEnd) {
-                                        tarefaController.excluir(tarefa);
+                                        await tarefaController.excluir(tarefa);
+                                        return true;
                                       } else if (direction ==
                                           DismissDirection.endToStart) {
                                         tarefaController.tarefa = tarefa;
@@ -135,6 +192,7 @@ class HomePage extends StatelessWidget {
                                             tarefa.descricao;
                                         _showBottonSheetAdicionarTarefa(
                                             context);
+                                        return false;
                                       }
                                     },
                                     child: Card(
