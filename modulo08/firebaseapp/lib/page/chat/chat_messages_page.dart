@@ -32,14 +32,15 @@ class ChatMessagesPage extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black87),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: TextField(
                         decoration:
                             InputDecoration(focusedBorder: InputBorder.none),
