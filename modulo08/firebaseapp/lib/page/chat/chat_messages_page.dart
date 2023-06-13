@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseapp/models/mensagem_model.dart';
 import 'package:firebaseapp/page/home_page.dart';
 import 'package:firebaseapp/services/chat_messages_controller.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,7 @@ class ChatMessagesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var chateMessagesX = Get.put(ChatMessagesController());
+    var chatMessagesX = Get.put(ChatMessagesController());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -28,7 +30,43 @@ class ChatMessagesPage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ListView(),
+                child: Obx(() {
+                  return StreamBuilder<QuerySnapshot>(
+                      stream: chatMessagesX.mensagens.value,
+                      builder: (context, snapshot) {
+                        return !snapshot.hasData
+                            ? const CircularProgressIndicator()
+                            : ListView(
+                                children: snapshot.data!.docs.map(
+                                  (e) {
+                                    var mensagem = MensagemModel.fromJson((e.data() as Map<String, dynamic>));
+                                    return Container(
+                                      alignment: chatMessagesX.currentUserId == mensagem.userId
+                                          ? Alignment.centerRight
+                                          : Alignment.centerLeft,
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          color: chatMessagesX.currentUserId == mensagem.userId
+                                              ? Colors.blue.shade100
+                                              : Colors.green.shade100,
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: Text(
+                                          mensagem.mensagem,
+                                          style: TextStyle(color: Colors.black),
+                                          textAlign: chatMessagesX.currentUserId == mensagem.userId
+                                              ? TextAlign.right
+                                              : TextAlign.left,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              );
+                      });
+                }),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -41,7 +79,7 @@ class ChatMessagesPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
-                        controller: chateMessagesX.mensagemController,
+                        controller: chatMessagesX.mensagemController,
                         decoration: InputDecoration(
                           hintText: 'Mensagem',
                           border: OutlineInputBorder(
@@ -58,8 +96,8 @@ class ChatMessagesPage extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        chateMessagesX.nickname = nickName;
-                        chateMessagesX.incluirMensagem();
+                        chatMessagesX.nickname = nickName;
+                        chatMessagesX.incluirMensagem();
                       },
                       icon: Icon(Icons.send),
                     ),

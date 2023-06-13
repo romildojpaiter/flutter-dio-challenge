@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebaseapp/main.dart';
 import 'package:firebaseapp/models/mensagem_model.dart';
 import 'package:firebaseapp/repository/message_repository.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 
 class ChatMessagesController extends GetxController {
   TextEditingController mensagemController = TextEditingController(text: "");
-  var mensagemRepository = getIt<MensagemRepository>();
+  final MensagemRepository _mensagemRepository = getIt<MensagemRepository>();
   final RxString _nickName = "".obs;
   final UsuarioController _usuarioController = getIt<UsuarioController>();
 
@@ -21,7 +22,12 @@ class ChatMessagesController extends GetxController {
       mensagem: mensagemController.text,
     );
     // print(mensagemModel.toJson());
-    mensagemRepository.add(mensagemModel);
+    _mensagemRepository.add(mensagemModel);
     mensagemController.clear();
   }
+
+  Rx<Stream<QuerySnapshot<Map<String, dynamic>>>> get mensagens =>
+      _mensagemRepository.list().orderBy("data_hora", descending: false).snapshots().obs;
+
+  String get currentUserId => _usuarioController.userId;
 }

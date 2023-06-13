@@ -17,4 +17,9 @@ class MensagemRepositoryImpl extends MensagemRepository {
         .add(mensagemModel.toJson())
         .then((DocumentReference doc) => print('MessageModel add with ID: ${doc.id}'));
   }
+
+  @override
+  CollectionReference<Map<String, dynamic>> list() {
+    return firebaseConn.db.collection(_collection);
+  }
 }
