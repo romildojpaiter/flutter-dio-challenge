@@ -24,19 +24,17 @@ class TarefaModel {
   TarefaModel.fromJson(Map<String, dynamic> json) {
     descricao = json['descricao'];
     concluido = json['concluido'];
-    concludedAt = json['concludedAt'] == null
-        ? null
-        : (json['concludedAt'] as Timestamp).toDate();
+    concludedAt = json['concludedAt'] == null ? null : (json['concludedAt'] as Timestamp).toDate();
     createdAt = (json["createdAt"] as Timestamp).toDate();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['descricao'] = this.descricao;
-    data['concluido'] = this.concluido;
-    data['concludedAt'] = this.concludedAt;
-    data['createdAt'] = this.createdAt;
-    data['userId'] = this.userId;
+    data['descricao'] = descricao;
+    data['concluido'] = concluido;
+    data['concludedAt'] = concludedAt;
+    data['createdAt'] = createdAt;
+    data['userId'] = userId;
     return data;
   }
 }

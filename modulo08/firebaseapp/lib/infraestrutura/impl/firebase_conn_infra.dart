@@ -4,5 +4,6 @@ import 'package:firebaseapp/infraestrutura/firebase_conn.dart';
 class FirebaseConnInfra implements FirebaseConn {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  @override
   FirebaseFirestore get db => _db;
 }

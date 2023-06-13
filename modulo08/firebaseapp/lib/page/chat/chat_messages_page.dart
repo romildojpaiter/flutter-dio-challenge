@@ -12,7 +12,7 @@ class ChatMessagesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var chatx = Get.put(ChatMessagesController());
+    var chateMessagesX = Get.put(ChatMessagesController());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -32,25 +32,35 @@ class ChatMessagesPage extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black87),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: TextField(
-                        decoration:
-                            InputDecoration(focusedBorder: InputBorder.none),
-                        style: TextStyle(
+                        controller: chateMessagesX.mensagemController,
+                        decoration: InputDecoration(
+                          hintText: 'Mensagem',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.all(5),
+                        ),
+                        style: const TextStyle(
                           fontSize: 20,
                         ),
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        chateMessagesX.nickname = nickName;
+                        chateMessagesX.incluirMensagem();
+                      },
                       icon: Icon(Icons.send),
                     ),
                   ],

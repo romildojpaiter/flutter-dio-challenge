@@ -31,8 +31,7 @@ class HomePage extends StatelessWidget {
           ),
           content: TextField(
             controller: descricaoController,
-            decoration: const InputDecoration(
-                icon: Icon(Icons.task), hintText: 'Informe o descricao'),
+            decoration: const InputDecoration(icon: Icon(Icons.task), hintText: 'Informe o descricao'),
           ),
           actions: <Widget>[
             ElevatedButton(
@@ -92,9 +91,7 @@ class HomePage extends StatelessWidget {
                   ),
                   TextField(
                     controller: descricaoController,
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.task),
-                        hintText: 'Informe o descricao'),
+                    decoration: const InputDecoration(icon: Icon(Icons.task), hintText: 'Informe o descricao'),
                   ),
                   Row(
                     children: [
@@ -110,17 +107,16 @@ class HomePage extends StatelessWidget {
                           child: const Text('Adicionar'),
                           onPressed: () {
                             tarefaController.addTask(descricaoController.text);
-                            Navigator.pop(context);
+                            Navigator.pop(context, true);
                           },
                         )
                       else
                         ElevatedButton(
                           child: const Text('Alterar'),
                           onPressed: () {
-                            tarefaController.tarefa.descricao =
-                                descricaoController.text;
+                            tarefaController.tarefa.descricao = descricaoController.text;
                             tarefaController.alterar(tarefaController.tarefa);
-                            Navigator.pop(context);
+                            Navigator.pop(context, false);
                           },
                         )
                     ],
@@ -176,26 +172,20 @@ class HomePage extends StatelessWidget {
                           : ListView(
                               children: snapshot.data!.docs.map(
                                 (item) {
-                                  var tarefa = TarefaModel.fromJson(
-                                      item.data() as Map<String, dynamic>);
+                                  var tarefa = TarefaModel.fromJson(item.data() as Map<String, dynamic>);
                                   tarefa.id = item.id;
                                   return Dismissible(
                                     key: UniqueKey(),
-                                    confirmDismiss:
-                                        (DismissDirection direction) async {
-                                      if (direction ==
-                                          DismissDirection.startToEnd) {
+                                    confirmDismiss: (DismissDirection direction) async {
+                                      if (direction == DismissDirection.startToEnd) {
                                         await tarefaController.excluir(tarefa);
                                         return true;
-                                      } else if (direction ==
-                                          DismissDirection.endToStart) {
+                                      } else if (direction == DismissDirection.endToStart) {
                                         tarefaController.tarefa = tarefa;
-                                        descricaoController.text =
-                                            tarefa.descricao;
-                                        _showBottonSheetAdicionarTarefa(
-                                            context);
-                                        return false;
+                                        descricaoController.text = tarefa.descricao;
+                                        return _showBottonSheetAdicionarTarefa(context);
                                       }
+                                      return false;
                                     },
                                     child: Card(
                                       elevation: 2,

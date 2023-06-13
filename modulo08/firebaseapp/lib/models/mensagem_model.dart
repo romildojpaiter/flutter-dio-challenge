@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class TextModel {
+class MensagemModel {
   DateTime dataHora = DateTime.now();
   String userId = "";
   String nickname = "";
-  String text = "";
+  String mensagem = "";
 
-  TextModel({required this.userId, required this.nickname, required this.text});
+  MensagemModel({required this.userId, required this.nickname, required this.mensagem});
 
-  TextModel.fromJson(Map<String, dynamic> json) {
+  MensagemModel.fromJson(Map<String, dynamic> json) {
     dataHora = (json['data_hora'] as Timestamp).toDate();
     userId = json['userId'];
     nickname = json['nickname'];
-    text = json['text'];
+    mensagem = json['text'];
   }
 
   Map<String, dynamic> toJson() {
@@ -20,7 +20,7 @@ class TextModel {
     data['data_hora'] = Timestamp.fromDate(dataHora);
     data['userId'] = userId;
     data['nickname'] = nickname;
-    data['text'] = text;
+    data['text'] = mensagem;
     return data;
   }
 }
