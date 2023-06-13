@@ -11,11 +11,9 @@ class MensagemRepositoryImpl extends MensagemRepository {
   });
 
   @override
-  void add(MensagemModel mensagemModel) {
-    firebaseConn.db
-        .collection(_collection)
-        .add(mensagemModel.toJson())
-        .then((DocumentReference doc) => print('MessageModel add with ID: ${doc.id}'));
+  Future<void> add(MensagemModel mensagemModel) async {
+    await firebaseConn.db.collection(_collection).add(mensagemModel.toJson());
+    //.then((DocumentReference doc) => print('MessageModel add with ID: ${doc.id}'));
   }
 
   @override
