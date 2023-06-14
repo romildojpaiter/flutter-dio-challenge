@@ -11,7 +11,7 @@ class StartApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: _buildTheme(Brightness.light),
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
