@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebaseapp/page/home_page.dart';
 import 'package:firebaseapp/page/register/register_page.dart';
+import 'package:firebaseapp/services/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginController = Get.find<LoginController>();
     return FutureBuilder<void>(
       future: callAsyncFetch(),
       builder: (context, AsyncSnapshot<void> snapshot) {

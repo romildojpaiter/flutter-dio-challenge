@@ -1,3 +1,4 @@
+import 'package:firebaseapp/infraestrutura/core/firebase_app_binding_core.dart';
 import 'package:firebaseapp/page/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -12,6 +13,7 @@ class StartApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: _buildTheme(Brightness.light),
       home: LoginPage(),
+      initialBinding: FirebaseAppBindingCore(),
     );
   }
 }
