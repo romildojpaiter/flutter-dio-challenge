@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
 
   Future<void> callAsyncFetch() async {
     try {
-      await analytics.logEvent(name: "LoginScreenWithFutureBuilder.");
+      await analytics.logEvent(name: "login_screen_page");
       return;
     } on Exception catch (e) {
       print("[ERROR] on use analitics $e");

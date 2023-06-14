@@ -25,6 +25,11 @@ class DrawerComponent extends StatelessWidget {
                     Get.to(() => ChatHome());
                   },
                 ),
+                ListTile(
+                  leading: const Icon(Icons.bug_report),
+                  title: const Text("Throw Test Exception"),
+                  onTap: () => throw Exception(),
+                ),
               ],
             ),
           ),
