@@ -1,4 +1,5 @@
 import 'package:firebaseapp/page/chat/chat_home.dart';
+import 'package:firebaseapp/page/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,17 +11,38 @@ class DrawerComponent extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          const DrawerHeader(
-            child: Text("header"),
+          Expanded(
+            child: Column(
+              children: [
+                const DrawerHeader(
+                  child: Text("header"),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.chat),
+                  title: const Text("Chat"),
+                  onTap: () {
+                    Get.back();
+                    Get.to(() => ChatHome());
+                  },
+                ),
+              ],
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.chat),
-            title: const Text("Chat"),
-            onTap: () {
-              Get.back();
-              Get.to(() => ChatHome());
-            },
-          )
+          Container(
+            child: Align(
+              alignment: FractionalOffset.bottomRight,
+              child: Column(
+                children: <Widget>[
+                  const Divider(),
+                  ListTile(
+                    onTap: () => Get.to(() => LoginPage()),
+                    leading: Icon(Icons.logout),
+                    title: Text('Sair'),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
