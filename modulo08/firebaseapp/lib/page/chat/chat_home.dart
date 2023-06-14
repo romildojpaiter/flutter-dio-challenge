@@ -16,6 +16,7 @@ class ChatHome extends StatelessWidget {
           title: Text("Chat"),
         ),
         body: Container(
+          color: Color(int.parse("0xff${remoteConfig.getString("COR_FUNDO_TELA")}")),
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

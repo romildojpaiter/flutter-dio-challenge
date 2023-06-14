@@ -38,6 +38,10 @@ Future<void> main() async {
     fetchTimeout: const Duration(minutes: 1),
     minimumFetchInterval: const Duration(hours: 1),
   ));
+  remoteConfig.onConfigUpdated.listen((event) async {
+    await remoteConfig.activate();
+    // Use the new config values here.
+  });
   await remoteConfig.setDefaults(const {
     "example_param_1": 42,
     "example_param_2": 3.14159,
