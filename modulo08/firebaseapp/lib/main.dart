@@ -20,10 +20,8 @@ void setupGetIt() {
   getIt.registerSingleton<UsuarioController>(UsuarioController());
 
   // Repositories
-  getIt.registerSingleton<TarefaRepository>(
-      TarefaRespositoryImpl(firebaseConn: getIt<FirebaseConn>()));
-  getIt.registerSingleton<MensagemRepository>(
-      MensagemRepositoryImpl(firebaseConn: getIt<FirebaseConn>()));
+  getIt.registerSingleton<TarefaRepository>(TarefaRespositoryImpl(firebaseConn: getIt<FirebaseConn>()));
+  getIt.registerSingleton<MensagemRepository>(MensagemRepositoryImpl(firebaseConn: getIt<FirebaseConn>()));
 
   // Alternatively you could write it if you don't like global variables
   // GetIt.I.registerSingleton<AppModel>(AppModel());
@@ -47,7 +45,12 @@ Future<void> main() async {
     "example_param_4": "Hello, world!",
   });
   // Teste recuperando Remote-Config
-  await remoteConfig.fetchAndActivate();
+  try {
+    await remoteConfig.fetchAndActivate();
+  } on Exception catch (e) {
+    // TODO
+    print("[ERROR] Ocorreu um erro no remote-config ${e.toString()}");
+  }
   print(remoteConfig.getString("example_param_4"));
 
   await dotenv.load(fileName: ".env");

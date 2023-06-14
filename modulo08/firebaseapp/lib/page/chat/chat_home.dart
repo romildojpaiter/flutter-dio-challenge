@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebaseapp/services/chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ class ChatHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ChatController chatx = Get.put(ChatController());
+    final remoteConfig = FirebaseRemoteConfig.instance;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -18,9 +20,9 @@ class ChatHome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Informe seu apelido",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+              Text(
+                remoteConfig.getString("TEXTO_CHAT_APELIDO"),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
               ),
               TextField(
                 controller: chatx.nickNameController,
