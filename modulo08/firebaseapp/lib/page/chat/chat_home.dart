@@ -12,11 +12,11 @@ class ChatHome extends StatelessWidget {
     final remoteConfig = FirebaseRemoteConfig.instance;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(int.parse("0xff${remoteConfig.getString("COR_FUNDO_TELA")}")),
         appBar: AppBar(
-          title: Text("Chat"),
+          title: const Text("Chat"),
         ),
         body: Container(
-          color: Color(int.parse("0xff${remoteConfig.getString("COR_FUNDO_TELA")}")),
           margin: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
