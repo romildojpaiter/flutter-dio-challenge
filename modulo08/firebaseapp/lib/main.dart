@@ -1,3 +1,5 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebaseapp/infraestrutura/firebase_conn.dart';
 import 'package:firebaseapp/infraestrutura/impl/firebase_conn_infra.dart';
@@ -20,8 +22,10 @@ void setupGetIt() {
   getIt.registerSingleton<UsuarioController>(UsuarioController());
 
   // Repositories
-  getIt.registerSingleton<TarefaRepository>(TarefaRespositoryImpl(firebaseConn: getIt<FirebaseConn>()));
-  getIt.registerSingleton<MensagemRepository>(MensagemRepositoryImpl(firebaseConn: getIt<FirebaseConn>()));
+  getIt.registerSingleton<TarefaRepository>(
+      TarefaRespositoryImpl(firebaseConn: getIt<FirebaseConn>()));
+  getIt.registerSingleton<MensagemRepository>(
+      MensagemRepositoryImpl(firebaseConn: getIt<FirebaseConn>()));
 
   // Alternatively you could write it if you don't like global variables
   // GetIt.I.registerSingleton<AppModel>(AppModel());
@@ -33,6 +37,44 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // Crashlitics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  // Messeging
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  final fcmToken = await messaging.getToken();
+
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+
+  if (fcmToken != null) {
+    print("fcmToken $fcmToken");
+  }
+  messaging.onTokenRefresh.listen((fcmToken) {
+    // Note: This callback is fired at each app startup and whenever a new
+    // token is generated.
+    print("Obtendo novamente: fcmToken: $fcmToken");
+  }).onError((err) {
+    // Error getting token.
+  });
+
+  // Remote Config
   final remoteConfig = FirebaseRemoteConfig.instance;
   await remoteConfig.setConfigSettings(RemoteConfigSettings(
     fetchTimeout: const Duration(minutes: 1),
