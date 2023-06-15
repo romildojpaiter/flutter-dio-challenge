@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebaseapp/page/home_page.dart';
 import 'package:firebaseapp/shared/login_or_home_widget.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
