@@ -1,5 +1,6 @@
 import 'package:firebaseapp/page/chat/chat_home.dart';
 import 'package:firebaseapp/page/login/login_page.dart';
+import 'package:firebaseapp/services/usuario_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +9,7 @@ class DrawerComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UsuarioController usuarioController = Get.find<UsuarioController>();
     return Drawer(
       child: Column(
         children: [
@@ -40,7 +42,7 @@ class DrawerComponent extends StatelessWidget {
                 children: <Widget>[
                   const Divider(),
                   ListTile(
-                    onTap: () => Get.to(() => LoginPage()),
+                    onTap: () => usuarioController.logout(),
                     leading: Icon(Icons.logout),
                     title: Text('Sair'),
                   )

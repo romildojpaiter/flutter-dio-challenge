@@ -8,7 +8,12 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? textEditingController;
   final String? hintText, labelText;
   const CustomTextField(
-      {Key? key, this.controller, this.textEditingController, this.isPassword = false, this.hintText, this.labelText})
+      {Key? key,
+      this.controller,
+      this.textEditingController,
+      this.isPassword = false,
+      this.hintText,
+      this.labelText})
       : super(key: key);
 
   @override
@@ -22,7 +27,9 @@ class CustomTextField extends StatelessWidget {
             labelText: labelText,
             suffixIcon: isPassword!
                 ? InkWell(
-                    child: controller!.isShown.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                    child: controller!.isShown.value
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                     onTap: () => controller!.toogle(),
                   )
                 : const SizedBox(height: 0)),

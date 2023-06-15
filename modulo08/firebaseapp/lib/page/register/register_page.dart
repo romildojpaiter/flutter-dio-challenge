@@ -1,5 +1,6 @@
 import 'package:firebaseapp/page/login/login_page.dart';
 import 'package:firebaseapp/services/password_controller.dart';
+import 'package:firebaseapp/services/usuario_controller.dart';
 import 'package:firebaseapp/shared/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,9 +13,11 @@ class RegisterPage extends StatelessWidget {
   final a = Get.put(PasswordController(), tag: "1");
   final b = Get.put(PasswordController(), tag: "2");
   final c = Get.put(PasswordController(), tag: "3");
+
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController = Get.put(PasswordController());
+    Get.put(PasswordController());
+    UsuarioController usuarioController = Get.find<UsuarioController>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -62,8 +65,10 @@ class RegisterPage extends StatelessWidget {
                   height: 40,
                   child: ElevatedButton(
                     onPressed: () async {
-                      await passwordController.createUser(
-                          email.text, password.text);
+                      await usuarioController.createUser(
+                        email.text,
+                        password.text,
+                      );
                     },
                     child: const Text(
                       "Cadastrar",
