@@ -14,7 +14,7 @@ class RegisterPage extends StatelessWidget {
   final c = Get.put(PasswordController(), tag: "3");
   @override
   Widget build(BuildContext context) {
-    Get.put(PasswordController());
+    PasswordController passwordController = Get.put(PasswordController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -61,10 +61,14 @@ class RegisterPage extends StatelessWidget {
                 SizedBox(
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await passwordController.createUser(
+                          email.text, password.text);
+                    },
                     child: const Text(
                       "Cadastrar",
-                      style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
                     ),
                   ),
                 ),

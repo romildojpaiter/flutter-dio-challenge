@@ -25,7 +25,6 @@ class LoginPage extends StatelessWidget {
     return FutureBuilder<void>(
       future: callAsyncFetch(),
       builder: (context, AsyncSnapshot<void> snapshot) {
-        print("SNAPSHOT: $snapshot");
         if (snapshot.connectionState == ConnectionState.done) {
           return SafeArea(
             child: Scaffold(

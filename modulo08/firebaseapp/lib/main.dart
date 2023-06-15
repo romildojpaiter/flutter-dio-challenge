@@ -66,6 +66,7 @@ Future<void> _configFirebase() async {
   if (fcmToken != null) {
     print("fcmToken $fcmToken");
   }
+
   messaging.onTokenRefresh.listen((fcmToken) {
     // Note: This callback is fired at each app startup and whenever a new
     // token is generated.
