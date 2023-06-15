@@ -72,8 +72,6 @@ class UsuarioController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_credentialKey);
     await prefs.remove(_keyUser);
-    print(prefs.getString(_credentialKey));
-    print(prefs.getString(_keyUser));
   }
 
   Future<void> logout() async {
