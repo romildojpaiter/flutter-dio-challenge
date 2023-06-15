@@ -10,18 +10,21 @@ class LoginOrHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UsuarioController usuarioController = Get.find<UsuarioController>();
-    return FutureBuilder(
-      future: usuarioController.tryAutoLogin(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.error != null) {
-          print(snapshot.error);
-          return Text('Ocorreu um erro');
-        } else {
-          return usuarioController.isAuth ? HomePage() : LoginPage();
-        }
-      },
-    );
+    return Obx(() {
+      return FutureBuilder(
+        future: usuarioController.tryAutoLogin(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.error != null) {
+            print(snapshot.error);
+            return Text('Ocorreu um erro');
+          } else {
+            print(usuarioController.isAuth);
+            return usuarioController.isAuth ? HomePage() : LoginPage();
+          }
+        },
+      );
+    });
   }
 }

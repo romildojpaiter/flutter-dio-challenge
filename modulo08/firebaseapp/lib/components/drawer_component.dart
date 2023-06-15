@@ -1,5 +1,4 @@
 import 'package:firebaseapp/page/chat/chat_home.dart';
-import 'package:firebaseapp/page/login/login_page.dart';
 import 'package:firebaseapp/services/usuario_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
